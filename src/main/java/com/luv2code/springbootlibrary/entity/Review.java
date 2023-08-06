@@ -1,6 +1,9 @@
 package com.luv2code.springbootlibrary.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -9,6 +12,9 @@ import java.util.Date;
 @Entity
 @Table(name = "review")
 @Data
+@Builder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Review {
 
     @Id
