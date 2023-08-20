@@ -11,6 +11,9 @@ public interface CheckoutRepository extends JpaRepository<Checkout, Long> {
 
     Checkout findByUserEmailAndBookId(String userEmail, Long bookId);
 
+    @Query("SELECT c FROM Checkout c WHERE c.userEmail = :userEmail")
+    List<Checkout> fndBooksByUserEmail(String userEmail);
+
     @Query("SELECT 1 FROM Checkout c WHERE c.userEmail = :userEmail AND c.book.id = :bookId")
     Integer isPresentByUserEmailAndBookId(@Param("userEmail") String userEmail,@Param("bookId") Long bookId);
 

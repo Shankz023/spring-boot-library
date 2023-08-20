@@ -1,6 +1,5 @@
 package com.luv2code.springbootlibrary.service.impl;
 
-import com.luv2code.springbootlibrary.dao.BookRepository;
 import com.luv2code.springbootlibrary.dao.ReviewRepository;
 import com.luv2code.springbootlibrary.entity.Review;
 import com.luv2code.springbootlibrary.exceptions.ServiceException;
@@ -16,18 +15,16 @@ import java.time.LocalDate;
 @Service
 public class ReviewServiceImpl implements ReviewService {
 
-    private final BookRepository bookRepository;
     private final ReviewRepository reviewRepository;
 
-    public ReviewServiceImpl(BookRepository bookRepository, ReviewRepository reviewRepository) {
-        this.bookRepository = bookRepository;
+    public ReviewServiceImpl(ReviewRepository reviewRepository) {
         this.reviewRepository = reviewRepository;
     }
 
     @Transactional
     public Review postReview(String userEmail, ReviewRequest reviewRequest) throws ServiceException {
-        Review validateReview = reviewRepository.findByUserEmailAndBookId(reviewRequest.getBookId(),userEmail);
-        if(validateReview !=null){
+        Review validateReview = reviewRepository.findByBookIdAndUserEmail(reviewRequest.getBookId(), userEmail).orElse(null);
+        if (validateReview != null) {
             throw new ServiceException("Review is already created");
         }
 
@@ -44,6 +41,13 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review getReview(Long bookId) {
-        return reviewRepository.findByBookId(bookId);
+        return null;
+        //return reviewRepository.findByBookId(bookId);
+    }
+
+    @Override
+    public Boolean userReviewListed(String userEmail, Long bookId) {
+        Review validateReview = reviewRepository.findByBookIdAndUserEmail(bookId, userEmail).orElse(null);
+        return validateReview != null;
     }
 }

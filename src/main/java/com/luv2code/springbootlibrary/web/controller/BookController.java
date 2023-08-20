@@ -1,12 +1,18 @@
-package com.luv2code.springbootlibrary.controller;
+package com.luv2code.springbootlibrary.web.controller;
 
+import com.luv2code.springbootlibrary.responsemodels.ShelfCurrentLoansResponse;
 import com.luv2code.springbootlibrary.service.BookService;
 import com.luv2code.springbootlibrary.service.impl.BookServiceImpl;
 import com.luv2code.springbootlibrary.utils.ExtractJWT;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.http.HttpResponse;
+import java.util.List;
 
 @CrossOrigin("http://localhost:3000")
 @RestController
@@ -19,6 +25,12 @@ public class BookController {
     public BookController(BookServiceImpl bookService) {
         this.bookService = bookService;
     }
+
+    @GetMapping("/secure/currentloans")
+    public List<ShelfCurrentLoansResponse> currentLoans(@RequestHeader(value = "Authorization") String token) throws Exception {
+        String userEmail = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
+        return bookService.currentLoans(userEmail);
+    };
 
     @PutMapping("/secure/checkout")
     public Book checkoutBook(@RequestHeader(value = "Authorization") String token, @RequestParam Long bookId) throws Exception {
@@ -36,6 +48,20 @@ public class BookController {
     public Integer currentLoansCount(@RequestHeader(value = "Authorization") String token) throws Exception {
         String userEmail = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
         return bookService.currentLoansCount(userEmail);
+    }
+
+    @PutMapping("/secure/return")
+    @ResponseStatus(HttpStatus.OK)
+    public void returnBook(@RequestHeader(value = "Authorization") String token, @RequestParam Long bookId) throws Exception {
+        String userEmail = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
+        bookService.returnBook(userEmail,bookId);
+    }
+
+    @PutMapping("/secure/renew/loan")
+    @ResponseStatus(HttpStatus.OK)
+    public void renewBook(@RequestHeader(value = "Authorization") String token, @RequestParam Long bookId) throws Exception {
+        String userEmail = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
+        bookService.renewLoan(userEmail,bookId);
     }
 
     private Book toApi(com.luv2code.springbootlibrary.entity.Book book) {

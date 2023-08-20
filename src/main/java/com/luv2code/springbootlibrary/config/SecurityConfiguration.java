@@ -4,6 +4,7 @@ import com.okta.spring.boot.oauth.Okta;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.accept.ContentNegotiationStrategy;
 import org.springframework.web.accept.HeaderContentNegotiationStrategy;
@@ -18,7 +19,8 @@ public class SecurityConfiguration {
         http.csrf().disable();
 
         // Protect endpoints at /api/<type>/secure
-        http.authorizeRequests(configurer -> configurer.antMatchers("/api/books/secure/**")
+        http.authorizeRequests(configurer -> configurer.antMatchers("/api/books/secure/**",
+                                "/api/reviews/secure/**")
                 .authenticated())
                 .oauth2ResourceServer()
                 .jwt();
@@ -33,5 +35,10 @@ public class SecurityConfiguration {
         Okta.configureResourceServer401ResponseBody(http);
 
         return http.build();
+    }
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/proxy/**");
     }
 }
