@@ -2,8 +2,10 @@ package com.luv2code.springbootlibrary.service.impl;
 
 import com.luv2code.springbootlibrary.dao.BookRepository;
 import com.luv2code.springbootlibrary.dao.CheckoutRepository;
+import com.luv2code.springbootlibrary.dao.HistoryRepository;
 import com.luv2code.springbootlibrary.entity.Book;
 import com.luv2code.springbootlibrary.entity.Checkout;
+import com.luv2code.springbootlibrary.entity.History;
 import com.luv2code.springbootlibrary.exceptions.ServiceException;
 import com.luv2code.springbootlibrary.responsemodels.ShelfCurrentLoansResponse;
 import com.luv2code.springbootlibrary.service.BookService;
@@ -28,9 +30,12 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final CheckoutRepository checkoutRepository;
 
-    BookServiceImpl(BookRepository bookRepository, CheckoutRepository checkoutRepository) {
+    private final HistoryRepository historyRepository;
+
+    BookServiceImpl(BookRepository bookRepository, CheckoutRepository checkoutRepository, HistoryRepository historyRepository) {
         this.bookRepository = bookRepository;
         this.checkoutRepository = checkoutRepository;
+        this.historyRepository = historyRepository;
     }
 
     @Transactional
@@ -120,6 +125,9 @@ public class BookServiceImpl implements BookService {
 
         bookRepository.save(book.get());
         checkoutRepository.deleteById(validateCheckout.getId());
+
+        History history = new History(userEmail,validateCheckout.getCheckoutDate(),LocalDate.now().toString(),book.get().getTitle(),book.get().getAuthor(),book.get().getDescription(),book.get().getImg());
+        historyRepository.save(history);
     }
 
     @Override
