@@ -8,10 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpResponse;
 import java.util.List;
 
 @CrossOrigin("http://localhost:3000")
@@ -64,7 +62,7 @@ public class BookController {
         bookService.renewLoan(userEmail,bookId);
     }
 
-    private Book toApi(com.luv2code.springbootlibrary.entity.Book book) {
+    private Book toApi(com.luv2code.springbootlibrary.dao.entity.Book book) {
         return Book.builder()
                 .id(book.getId())
                 .title(book.getTitle())

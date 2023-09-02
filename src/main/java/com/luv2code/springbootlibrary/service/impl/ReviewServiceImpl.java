@@ -1,7 +1,7 @@
 package com.luv2code.springbootlibrary.service.impl;
 
 import com.luv2code.springbootlibrary.dao.ReviewRepository;
-import com.luv2code.springbootlibrary.entity.Review;
+import com.luv2code.springbootlibrary.dao.entity.Review;
 import com.luv2code.springbootlibrary.exceptions.ServiceException;
 import com.luv2code.springbootlibrary.requestmodels.ReviewRequest;
 import com.luv2code.springbootlibrary.service.ReviewService;

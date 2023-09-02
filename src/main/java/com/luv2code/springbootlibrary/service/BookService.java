@@ -1,7 +1,6 @@
 package com.luv2code.springbootlibrary.service;
 
-import com.luv2code.springbootlibrary.entity.Book;
-import com.luv2code.springbootlibrary.entity.Checkout;
+import com.luv2code.springbootlibrary.dao.entity.Book;
 import com.luv2code.springbootlibrary.responsemodels.ShelfCurrentLoansResponse;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.luv2code.springbootlibrary.entity;
+package com.luv2code.springbootlibrary.dao.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

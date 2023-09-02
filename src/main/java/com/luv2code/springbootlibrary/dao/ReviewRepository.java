@@ -1,6 +1,6 @@
 package com.luv2code.springbootlibrary.dao;
 
-import com.luv2code.springbootlibrary.entity.Review;
+import com.luv2code.springbootlibrary.dao.entity.Review;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

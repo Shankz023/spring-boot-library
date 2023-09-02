@@ -1,10 +1,9 @@
 package com.luv2code.springbootlibrary.web.controller;
 
-import com.luv2code.springbootlibrary.entity.Review;
+import com.luv2code.springbootlibrary.dao.entity.Review;
 import com.luv2code.springbootlibrary.exceptions.ServiceException;
 import com.luv2code.springbootlibrary.requestmodels.ReviewRequest;
 import com.luv2code.springbootlibrary.service.ReviewService;
-import com.luv2code.springbootlibrary.service.impl.ReviewServiceImpl;
 import com.luv2code.springbootlibrary.utils.ExtractJWT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +20,7 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @Autowired
-    public ReviewController(ReviewServiceImpl reviewService) {
+    public ReviewController(ReviewService reviewService) {
         this.reviewService = reviewService;
     }
 

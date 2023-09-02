@@ -1,6 +1,6 @@
 package com.luv2code.springbootlibrary.responsemodels;
 
-import com.luv2code.springbootlibrary.entity.Book;
+import com.luv2code.springbootlibrary.dao.entity.Book;
 import lombok.Data;
 
 @Data

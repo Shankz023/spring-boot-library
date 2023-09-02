@@ -1,6 +1,6 @@
 package com.luv2code.springbootlibrary.dao;
 
-import com.luv2code.springbootlibrary.entity.Checkout;
+import com.luv2code.springbootlibrary.dao.entity.Checkout;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
