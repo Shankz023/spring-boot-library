@@ -1,8 +1,10 @@
 package com.luv2code.springbootlibrary.dao.entity;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -10,11 +12,13 @@ import javax.persistence.*;
 @Table
 @Data
 @Builder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "title")
@@ -37,4 +41,7 @@ public class Book {
 
     @Column(name = "img")
     private String img;
+
+    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Checkout checkout;
 }

@@ -25,7 +25,7 @@ public class Checkout {
     @Column(name = "return_date")
     private String returnDate;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "book_id")
     private Book book;
 
