@@ -1,10 +1,13 @@
 package com.luv2code.springbootlibrary;
 
 import com.luv2code.springbootlibrary.exceptions.ServiceException;
+import org.apache.catalina.connector.ClientAbortException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.io.IOException;
 
 @RestControllerAdvice
 public class GlobalControllerAdvice {
